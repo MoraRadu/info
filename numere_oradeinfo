@@ -1,0 +1,50 @@
+#include <fstream>
+#include <algorithm>
+
+using namespace std;
+
+ifstream fin("numere1.in");
+ofstream fout("numere1.out");
+
+char ap[10][1000];
+int v[1005],maxim[10];
+int main()
+{
+    int n,i,aux,j,aux2;
+    fin>>n;
+    for(i=1; i<=n; i++)
+    {
+        fin>>v[i];
+        aux=v[i];
+        while(aux)
+        {
+            ap[aux%10][i]++;
+            aux/=10;
+        }
+    }
+    for(j=0; j<=9; j++)
+    {
+        maxim[j]=0;
+        for(i=1; i<=n; i++)
+        {
+            if(ap[j][i]>maxim[j])
+            {
+                maxim[j]=ap[j][i];
+            }
+        }
+        if(maxim[j]!=0)
+        {
+            for(i=1; i<=n; i++)
+            {
+                if(ap[j][i]==maxim[j])
+                {
+                    fout<<v[i]<<" ";
+                }
+            }
+            fout<<endl;
+        }
+    }
+    fin.close();
+    fout.close();
+    return 0;
+}
