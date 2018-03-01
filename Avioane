@@ -1,0 +1,78 @@
+#include <fstream>
+using namespace std;
+ifstream fin("avioane.in");
+ofstream fout("avioane.out");
+int a[305][305];
+char lov[10000];
+int main()
+{
+    int l,i,j,n,maxim=0,nord=0,est=0,sud=0,vest=0,i1,j1,distruse=0,avariate=0;
+    fin>>n>>l;
+    for(i=1; i<=n; i++)
+    {
+        for(j=1; j<=n; j++)
+        {
+            fin>>a[i][j];
+            maxim=max(maxim,a[i][j]);
+        }
+    }
+    fout<<maxim<<'\n';
+
+    for(i=1; i<=n; i++)
+    {
+        for(j=1; j<=n; j++)
+        {
+            if(a[i][j]!=0)
+            {
+                if(a[i][j-1]!=a[i][j]  && a[i-1][j]!=a[i][j] && a[i][j+1]!=a[i][j] && a[i+3][j]==a[i][j] && a[i+4][j]!=a[i][j])   ///cabina orientata spre nord
+                {
+                    a[i][j]+=maxim;
+                    nord++;
+                }
+                if(a[i][j+1]!=a[i][j] && a[i-1][j]!=a[i][j] && a[i+1][j]!=a[i][j] && a[i][j-3]==a[i][j] && a[i][j-4]!=a[i][j])   ///cabina orientata spre est
+                {
+                    a[i][j]+=maxim;
+                    est++;
+                }
+                if(a[i][j-1]!=a[i][j] && a[i+1][j]!=a[i][j] && a[i][j+1]!=a[i][j] && a[i-3][j]==a[i][j] && a[i-4][j]!=a[i][j])   ///cabina orientata spre sud
+                {
+                    a[i][j]+=maxim;
+                    sud++;
+                }
+                if(a[i][j-1]!=a[i][j] && a[i-1][j]!=a[i][j] && a[i+1][j]!=a[i][j] && a[i][j+3]==a[i][j] && a[i][j+4]!=a[i][j])   ///cabina orientata spre vest
+                {
+                    a[i][j]+=maxim;
+                    vest++;
+                }
+            }
+        }
+    }
+    fout<<nord<<"\n"<<est<<"\n"<<sud<<"\n"<<vest<<"\n";
+    for(i=1; i<=l; i++)
+    {
+        fin>>i1>>j1;
+        if(a[i1][j1]>maxim)
+        {
+            lov[a[i1][j1]-maxim]=11;
+        }
+        else if(a[i1][j1]<=maxim)
+        {
+            lov[a[i1][j1]]++;
+        }
+    }
+    for(i=1; i<=maxim; i++)
+    {
+        if(lov[i]>=5)
+        {
+            distruse++;
+        }
+        if(lov[i]>0 && lov[i]<5)
+        {
+            avariate++;
+        }
+    }
+    fout<<avariate<<'\n'<<distruse;
+    fin.close();
+    fout.close();
+    return 0;
+}
