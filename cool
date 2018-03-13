@@ -1,0 +1,39 @@
+#include <fstream>
+#include <algorithm>
+using namespace std;
+ifstream fin("cool.in");
+ofstream fout("cool.out");
+int v[5005];
+int main()
+{
+    int p,n,k,i,x;
+    fin>>p;
+    fin>>n>>k;
+
+        if(p==1)
+        {
+
+                    for(i=1; i<=k; i++)
+                    {
+                        fin>>v[i];
+                    }
+
+                sort(v+1,v+k+1);
+                    for(i=k; i<=n; i++)
+                    {
+                        fin>>x;
+                    }
+
+                    for(i=1; i<=k; i++)
+                    {
+                        if(v[i]==v[i+1] && v[i+1]-v[i]==1)
+                        {
+                            ok=0;
+                        }
+                    }
+                    if()
+        }
+    fin.close();
+    fout.close();
+    return 0;
+}
